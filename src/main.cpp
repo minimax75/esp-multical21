@@ -51,6 +51,8 @@ PubSubClient mqttClient(espMqttClient);
 char MyIp[16];
 int cred = -1;
 
+
+
 int getWifiToConnect(int numSsid)
 {
   for (int i = 0; i < NUM_SSID_CREDENTIALS; i++)
@@ -132,9 +134,15 @@ bool ConnectWifi(void)
   return true;
 }
 
-void mqttDebug(const char* debug_str)
+void  mqttDebug(const char* debug_str)
 {
     String s="/watermeter/debug";
+    mqttClient.publish(s.c_str(), debug_str);
+}
+
+void  mqttMyData(const char* debug_str)
+{
+    String s="/watermeter/mydata";
     mqttClient.publish(s.c_str(), debug_str);
 }
 
