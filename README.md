@@ -1,4 +1,8 @@
 # esp-multical21
+
+Added MQTT data upload to the project from weetmuts original the values was only send to the serial terminal.
+And how the data is written to the serial terminal.
+
 ESP8266 decrypts wireless MBus frames from a Multical21 water meter
 
 A CC1101 868 MHz modul is connected via SPI to the ESP8266 an configured to receive Wireless MBus frames.
