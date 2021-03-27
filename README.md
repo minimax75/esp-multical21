@@ -4,7 +4,7 @@ Added MQTT data upload to the project from weetmuts original the values was only
 And how the data is written to the serial terminal.
 
 Recieve MQTT Topics via
-"/watermeter/mydatajson"
+"/watermeter/mydatajson" and 
 "/watermeter/mydata"
 
 ESP8266 decrypts wireless MBus frames from a Multical21 water meter
