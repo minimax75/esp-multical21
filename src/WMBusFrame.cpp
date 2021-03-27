@@ -12,7 +12,11 @@
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+
 #include "WMbusFrame.h"
+
+void  mqttDebug(const char* debug_str);
+void  mqttMyData(const char* debug_str);
 
 WMBusFrame::WMBusFrame()
 {
@@ -55,12 +59,21 @@ void WMBusFrame::printMeterInfo(uint8_t *data, size_t len)
   }
 
   char total[10];
+  char mqttstring[25];
+  String s;
   uint32_t tt = data[pos_tt]
               + (data[pos_tt+1] << 8)
               + (data[pos_tt+2] << 16)
               + (data[pos_tt+3] << 24);
   snprintf(total, sizeof(total), "%d.%03d", tt/1000, tt%1000 );
-  Serial.printf("total: %s m%c - ", total, 179);
+  //Serial.printf("total: %s m%c - ", total, 179);
+  Serial.printf("CurrentValue: %s m3 - ", total);
+
+ // s="/watermeter/MyData";
+ // mqttClient.publish(s.c_str(), total, true);
+ snprintf(mqttstring, sizeof(mqttstring), "CurrentValue:%d.%03d", tt/1000, tt%1000 );
+ mqttMyData(mqttstring);
+
 
   char target[10];
   uint32_t tg = data[pos_tg]
@@ -68,15 +81,24 @@ void WMBusFrame::printMeterInfo(uint8_t *data, size_t len)
               + (data[pos_tg+2] << 16)
               + (data[pos_tg+3] << 24);
   snprintf(target, sizeof(target), "%d.%03d", tg/1000, tg%1000 );
-  Serial.printf("target: %s m%c - ", target, 179);
+  //Serial.printf("target: %s m%c - ", target, 179);
+  Serial.printf("MonthStartValue: %s m3 - ", target);
+ snprintf(mqttstring, sizeof(mqttstring), "MonthStartValue:%d.%03d", tg/1000, tg%1000 );
+ mqttMyData(mqttstring);
 
   char flow_temp[3];
   snprintf(flow_temp, sizeof(flow_temp), "%2d", data[pos_ft]);
-  Serial.printf("%s %cC - ", flow_temp, 176);
+  //Serial.printf("%s %cC - ", flow_temp, 176);
+  Serial.printf("WaterTemp: %s C - ", flow_temp);
+  snprintf(mqttstring, sizeof(mqttstring), "WaterTemp:%2d", data[pos_ft]);
+  mqttMyData(mqttstring);
 
   char ambient_temp[3];
   snprintf(ambient_temp, sizeof(ambient_temp), "%2d", data[pos_at]);
-  Serial.printf("%s %cC\n\r", ambient_temp, 176);
+  //Serial.printf("%s %cC\n\r", ambient_temp, 176);
+  Serial.printf("RoomTemp: %s C\n\r", ambient_temp);
+  snprintf(mqttstring, sizeof(mqttstring), "RoomTemp:%2d", data[pos_at]);
+  mqttMyData(mqttstring);
 }
 
 void WMBusFrame::decode()
