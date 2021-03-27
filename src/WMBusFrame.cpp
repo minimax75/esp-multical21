@@ -17,6 +17,7 @@
 
 void  mqttDebug(const char* debug_str);
 void  mqttMyData(const char* debug_str);
+void  mqttMyDataJson(const char* debug_str);
 
 WMBusFrame::WMBusFrame()
 {
@@ -60,6 +61,7 @@ void WMBusFrame::printMeterInfo(uint8_t *data, size_t len)
 
   char total[10];
   char mqttstring[25];
+  char mqttjsondstring[100];
   String s;
   uint32_t tt = data[pos_tt]
               + (data[pos_tt+1] << 8)
@@ -99,6 +101,11 @@ void WMBusFrame::printMeterInfo(uint8_t *data, size_t len)
   Serial.printf("RoomTemp: %s C\n\r", ambient_temp);
   snprintf(mqttstring, sizeof(mqttstring), "RoomTemp:%2d", data[pos_at]);
   mqttMyData(mqttstring);
+
+snprintf(mqttjsondstring, sizeof(mqttjsondstring), "{\"currentValue\":%d.%03d,\"monthStartValue\":%d.%03d,\"WaterTemp\":%2d,\"RoomTemp\":%2d}",tt/1000, tt%1000, tg/1000, tg%1000, data[pos_ft],data[pos_at]);
+mqttMyDataJson(mqttjsondstring);
+  
+
 }
 
 void WMBusFrame::decode()

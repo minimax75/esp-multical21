@@ -146,6 +146,12 @@ void  mqttMyData(const char* debug_str)
     mqttClient.publish(s.c_str(), debug_str);
 }
 
+void  mqttMyDataJson(const char* debug_str)
+{
+    String s="/watermeter/mydatajson";
+    mqttClient.publish(s.c_str(), debug_str);
+}
+
 void mqttCallback(char* topic, byte* payload, unsigned int len)
 {
   // create a local copies of topic and payload
