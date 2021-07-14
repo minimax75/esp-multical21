@@ -11,7 +11,5 @@ __pycache__
 # Other
 .pio
 .vscode
-include/credentials.h.real
 .pioenvs
-include/credentials.h
 include/credentials.h

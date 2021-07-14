@@ -5,11 +5,14 @@ And how the data is written to the serial terminal.
 
 Added MQTT username and password to the code and example credentials.h
 If no username and password are to be user change the lines in main.cpp
-  // connect client to retainable last will message without credentials
+
+   ```c++
+   // connect client to retainable last will message without credentials
   // return mqttClient.connect(ESP_NAME, "/watermeter/online", 0, true, "False");
 
   // connect client to retainable last will message with credentials
   return mqttClient.connect(ESP_NAME, MQTT_USER, MQTT_PASS, "/watermeter/online", 0, true, "False");
+   ```
 
 Recieve MQTT Topics via
 "/watermeter/mydatajson" and 
