@@ -196,8 +196,11 @@ bool mqttConnect()
   mqttClient.setServer(credentials[cred][2], 1883);
   mqttClient.setCallback(mqttCallback);
 
-  // connect client to retainable last will message
-  return mqttClient.connect(ESP_NAME, "/watermeter/online", 0, true, "False");
+  // connect client to retainable last will message without credentials
+  // return mqttClient.connect(ESP_NAME, "/watermeter/online", 0, true, "False");
+
+  // connect client to retainable last will message with credentials
+  return mqttClient.connect(ESP_NAME, MQTT_USER, MQTT_PASS, "/watermeter/online", 0, true, "False");
 }
 
 void mqttSubscribe()
