@@ -4,7 +4,7 @@ Added MQTT data upload to the project from weetmuts original the values was only
 And how the data is written to the serial terminal.
 
 Added MQTT username and password to the code and example credentials.h
-If no username and password are to be user change the lines in main.cpp
+If no username and password are set on the MQTT server, change the commented lines in main.cpp
 
    ```c++
    // connect client to retainable last will message without credentials
