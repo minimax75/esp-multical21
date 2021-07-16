@@ -165,19 +165,19 @@ void mqttCallback(char* topic, byte* payload, unsigned int len)
   Serial.print(" ");
   Serial.println((char)payload[0]); // FIXME LEN
 */
-  if (strstr(topic, "/smarthomeNG/start"))
+  if (strstr(topic, "/watermeter/start"))
   {
     if (len == 4) // True
     {
       // maybe to something
     }
   }
-  else if (strstr(topic, "/espmeter/reset"))
+  else if (strstr(topic, "/watermeter/reset"))
   {
     if (len == 4) // True
     {
       // maybe to something
-      const char *topic = "/espmeter/reset/status";
+      const char *topic = "/watermeter/reset/status";
       const char *msg = "False";
       mqttClient.publish(topic, msg);
       mqttClient.loop();
@@ -224,7 +224,7 @@ void mqttSubscribe()
 //  Serial.println(MyIp);
 
   // if smarthome.py restarts -> publish init values
-  s = "/smarthomeNG/start";
+  s = "/watermeter/start";
   mqttClient.subscribe(s.c_str());
 
   // if True; meter data are published every 5 seconds
@@ -233,7 +233,7 @@ void mqttSubscribe()
   mqttClient.subscribe(s.c_str());
 
   // if True -> perform an reset
-  s = "/espmeter/reset";
+  s = "/watermeter/reset";
   mqttClient.subscribe(s.c_str());
 }
 
